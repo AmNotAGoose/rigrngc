@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../../Packages/SDL-release-3.4.12/VisualC/SDL/SDL.vcxproj" />
+  <Project Path="sdllearning2/sdllearning2.vcxproj" />
+</Solution>
