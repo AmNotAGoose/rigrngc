@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "dictionary.h"
 
 DictItem* get_item_by_key(Dict dict, const char* key) {
@@ -10,4 +9,12 @@ DictItem* get_item_by_key(Dict dict, const char* key) {
 		}
 	}
 	return NULL;
+}
+
+DictKeys get_keys(Dict dict) {
+	DictKeys keys = {
+		dict.items[0].key,
+		dict.count
+	};
+	return keys;
 }

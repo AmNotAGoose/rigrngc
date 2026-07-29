@@ -8,10 +8,19 @@
 
 
 static const DictItem age_luck_items[] = {
-	{"", 4}
+	{"0-13", 3},
+	{"14-25", 6},
+	{"26-100", -3},
 };
 
 static const Dict age_luck_dict = MAKE_DICT(age_luck_items);
+
+
+static DictItem color_luck_items[] = {
+	{"red", 3},
+	{"blue", 10},
+	{"green", -1},
+};
 
 
 float luck = 0;
