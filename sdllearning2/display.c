@@ -5,6 +5,10 @@
 
 #include "display.h";
 
+bool display_divider() {
+	printf("---------------\n");
+	return true;
+}
 
 bool display_message(DisplayMode display_mode, const char* message, ...) {
 	va_list args;
@@ -28,11 +32,13 @@ bool display_message(DisplayMode display_mode, const char* message, ...) {
 			postfill = "\n---------------\n";
 			break;
 		case DM_Prompt:
-			prefill = "[!] > ";
+			prefill = "-> ";
 			postfill = "\n";
+			break;
 		case DM_Choice:
 			prefill = "    ";
 			postfill = "\n";
+			break;
 		default:
 			postfill = "\n";
 			break;
@@ -48,6 +54,7 @@ bool display_message(DisplayMode display_mode, const char* message, ...) {
 }
 
 bool get_user_input(char* buffer, size_t buffer_size) {
+	printf("YOUR INPUT: ");
 	fgets(buffer, buffer_size, stdin);
 	return true;
 }
@@ -67,10 +74,13 @@ int get_user_choice(char** choices, size_t count) {
 		char* last_char;
 		choice = (int)strtol(input, &last_char, 10);
 
-		if (*last_char == '\0') {
+		if (*last_char == '\0' && 0 <= choice && choice < count) {
 			break;
 		}
+
+		display_message(DM_None, "that's not a valid choice. try again.");
 	}
 
+	display_message(DM_Emphasis, "saved");
 	return choice;
 }

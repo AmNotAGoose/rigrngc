@@ -11,9 +11,9 @@
 
 
 static const DictItem age_luck_items[] = {
-	{"-13", 3},
+	{"0-13", 3},
 	{"14-25", 6},
-	{"26-", -3},
+	{"26+", -3},
 };
 static const Dict age_luck_dict = MAKE_DICT(age_luck_items);
 
@@ -25,6 +25,11 @@ static DictItem color_luck_items[] = {
 };
 static const Dict color_luck_dict = MAKE_DICT(color_luck_items);
 
+const char* main_menu_choices[] = {
+	"roll for scrap",
+	"spend your scrap",
+	"build rigs"
+};
 
 static float luck = 0;
 unsigned int seed = 0;
@@ -45,42 +50,42 @@ void onboarding() {
 
 	int age_input_raw;
 	char* age_key = NULL;
-	char color_key[16];
+	char* color_key = NULL;
 	
 	display_message(DM_None, "firstly, tell me about yourself. this will significantly impact your LUCK in the game.");
-	
-	while (1) {
-		const char** age_luck_ranges = malloc(sizeof(char*) * age_luck_dict.count);
-		get_keys(age_luck_dict, age_luck_ranges);
+	 
+	const char** age_luck_ranges = malloc(sizeof(char*) * age_luck_dict.count);
+	get_keys(age_luck_dict, age_luck_ranges);
 
-		age_key = age_luck_dict.items[get_user_choice(&age_luck_ranges, age_luck_dict.count)].key;
+	display_message(DM_Prompt, "what is your age?");
+	age_key = age_luck_dict.items[get_user_choice(age_luck_ranges, age_luck_dict.count)].key;
 
-		printf(age_key);
+	const char** color_luck_ranges = malloc(sizeof(char*) * color_luck_dict.count);
+	get_keys(color_luck_dict, color_luck_ranges);
 
-		//printf("\nwhat is your favorite COLOR ? \n> ");
-		//scanf("%15s", color_key);
+	display_message(DM_Prompt, "what is your favorite color?");
+	color_key = color_luck_dict.items[get_user_choice(color_luck_ranges, color_luck_dict.count)].key;
 
-		//DictItem* age_item = get_item_by_key(age_luck_dict, age_key);
-		//DictItem* color_item = get_item_by_key(color_luck_dict, color_key);
+	DictItem* age_item = get_item_by_key(age_luck_dict, age_key);
+	DictItem* color_item = get_item_by_key(color_luck_dict, color_key);
 
-		//if (!age_item || !color_item) {
-		//	printf("\ntry again but think harder about it");
-		//	continue;
-		//}
+	free(age_luck_ranges);
+	free(color_luck_ranges); 
 
-		//luck = (*age_item).value + (*color_item).value;
-
-		//printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", 3, color_key, luck);
-
-		free(age_luck_ranges); 
-	}
+	luck = (*age_item).value + (*color_item).value;
+		
+	display_message(DM_Emphasis, "your AGE scores you %d", age_key);
+	display_message(DM_Emphasis, "your favorite COLOR scores you %s", color_key);
+	display_message(DM_Emphasis, "your LUCK is therefore %f", luck);
 }
 
 int main_menu() {
 	int menu = 0;
-	printf("\n\n-------------\nwhat would you like to do? \n[1] roll once\n[2] exit \n-------------\n> ");
-	scanf("%d", &menu);
-	return (menu > 0 && menu <= 2 ? menu : -1);
+	
+	display_divider();
+	display_message(DM_Prompt, "what would you like to do?");
+	int choice = get_user_choice(&main_menu_choices, ARRAY_COUNT(main_menu_choices));
+	return choice;
 }
 
 int main() {
