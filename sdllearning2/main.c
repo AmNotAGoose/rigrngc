@@ -49,20 +49,23 @@ void onboarding() {
 	
 	while (1) {
 
-		printf("\nwhat is your AGE ? ");
+		printf("\nwhat is your AGE ? \n> ");
 		scanf("%d", &age_input_raw);
 
-		if (age_input_raw <= 13) {
+		if (0 <= age_input_raw <= 13) {
 			age_key = "-13";
 		}
 		else if (age_input_raw > 13 && age_input_raw <= 25) {
 			age_key = "14-25";
 		}
-		else {
+		else if (age_input_raw > 25) {
 			age_key = "26-";
 		}
+		else {
+			age_key = "";
+		}
 
-		printf("\nwhat is your favorite COLOR ? ");
+		printf("\nwhat is your favorite COLOR ? \n> ");
 		scanf("%15s", color_key);
 
 		DictItem* age_item = get_item_by_key(age_luck_dict, age_key);
@@ -73,8 +76,6 @@ void onboarding() {
 			continue;
 		}
 
-		printf("%s, %s", (*age_item).key, (*color_item).key);
-
 		luck = (*age_item).value + (*color_item).value;
 
 		printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", age_input_raw, color_key, luck);
@@ -83,19 +84,23 @@ void onboarding() {
 	}
 }
 
+int main_menu() {
+	int menu = 0;
+	printf("\n\n-------------\nwhat would you like to do? \n[1] roll once\n[2] exit \n-------------\n> ");
+	scanf("%d", menu);
+	return menu > 0 && menu <= 2 ? menu : -1;
+}
+
 int main() {
 	seed = (int)time(NULL);
 	srand(seed);
 
 	onboarding();
 
-	//while (1) {
-	//	printf("what would you like to do ?");
-	//	
-
-
-	//}
-
+	while (1) {
+		int menu = main_menu();
+		printf("%d", &menu);
+	}
 
 	return 0;
 }
