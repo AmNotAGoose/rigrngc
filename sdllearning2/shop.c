@@ -7,7 +7,7 @@
 #include "shop.h"
 
 void SHOP_tutorial() {
-	display_message(DM_Emphasis, "there are two types of currency in this game: SCRAP and PRODUCT");
+	display_message(DM_Emphasis, "There are two types of currency in this game: SCRAP and PRODUCT");
 	get_user_continue();
 	display_message(DM_Emphasis, "SCRAP can be gained from the scrapyard, where you can roll for it.");
 	get_user_continue();
