@@ -14,6 +14,7 @@ typedef struct {
 } Dict;
 
 DictItem* get_item_by_key(Dict dict, const char* key);
-void get_keys(Dict dict, const char** buffer);
+//void get_keys(Dict dict, const char** buffer);
+const char** get_keys(Dict* dict);
 
 #endif

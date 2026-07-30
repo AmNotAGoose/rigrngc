@@ -35,20 +35,10 @@ static float luck = 0;
 unsigned int seed = 0;
 
 
-
-int roll_dice(int size) {
-	return (rand() % size) + 1;
-}
-
-int scrapyard() {
-	return roll_dice(6) + roll_dice(6);
-}
-
 void onboarding() {
 	display_message(DM_Emphasis, "welcome. to rigrng (c).");
 	display_message(DM_Section, "seed: %d", seed);
-
-	int age_input_raw;
+	
 	char* age_key = NULL;
 	char* color_key = NULL;
 	
@@ -72,10 +62,13 @@ void onboarding() {
 	free(age_luck_ranges);
 	free(color_luck_ranges); 
 
-	luck = (*age_item).value + (*color_item).value;
+	int age_luck_value = age_item->value;
+	int color_luck_value = age_item->value;
+
+	luck = age_luck_value + color_luck_value;
 		
-	display_message(DM_Emphasis, "your AGE scores you %d", age_key);
-	display_message(DM_Emphasis, "your favorite COLOR scores you %s", color_key);
+	display_message(DM_Emphasis, "your AGE scores you %d", age_luck_value);
+	display_message(DM_Emphasis, "your favorite COLOR scores you %d", color_luck_value);
 	display_message(DM_Emphasis, "your LUCK is therefore %f", luck);
 }
 
@@ -96,7 +89,8 @@ int main() {
 
 	while (1) {
 		int menu = main_menu();
-		printf("%d", menu);
+
+
 	}
 
 	return 0;
