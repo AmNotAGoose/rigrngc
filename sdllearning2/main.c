@@ -50,42 +50,29 @@ void onboarding() {
 	display_message(DM_None, "firstly, tell me about yourself. this will significantly impact your LUCK in the game.");
 	
 	while (1) {
-		const char* age_luck_ranges;
-		get_keys(age_luck_dict, &age_luck_ranges);
+		const char** age_luck_ranges = malloc(sizeof(char*) * age_luck_dict.count);
+		get_keys(age_luck_dict, age_luck_ranges);
 
-		age_key = get_user_choice(&age_luck_ranges, age_luck_dict.count);
+		age_key = age_luck_dict.items[get_user_choice(&age_luck_ranges, age_luck_dict.count)].key;
 
 		printf(age_key);
 
-		//if (age_input_raw >= 0 && age_input_raw <= 13) {
-		//	age_key = "-13";
-		//}
-		//else if (age_input_raw > 13 && age_input_raw <= 25) {
-		//	age_key = "14-25";
-		//}
-		//else if (age_input_raw > 25) {
-		//	age_key = "26-";
-		//}
-		//else {
-		//	age_key = "";
+		//printf("\nwhat is your favorite COLOR ? \n> ");
+		//scanf("%15s", color_key);
+
+		//DictItem* age_item = get_item_by_key(age_luck_dict, age_key);
+		//DictItem* color_item = get_item_by_key(color_luck_dict, color_key);
+
+		//if (!age_item || !color_item) {
+		//	printf("\ntry again but think harder about it");
+		//	continue;
 		//}
 
-		printf("\nwhat is your favorite COLOR ? \n> ");
-		scanf("%15s", color_key);
+		//luck = (*age_item).value + (*color_item).value;
 
-		DictItem* age_item = get_item_by_key(age_luck_dict, age_key);
-		DictItem* color_item = get_item_by_key(color_luck_dict, color_key);
+		//printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", 3, color_key, luck);
 
-		if (!age_item || !color_item) {
-			printf("\ntry again but think harder about it");
-			continue;
-		}
-
-		luck = (*age_item).value + (*color_item).value;
-
-		printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", 3, color_key, luck);
-
-		break;
+		free(age_luck_ranges); 
 	}
 }
 

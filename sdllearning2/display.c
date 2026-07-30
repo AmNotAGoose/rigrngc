@@ -34,6 +34,7 @@ bool display_message(DisplayMode display_mode, const char* message, ...) {
 			prefill = "    ";
 			postfill = "\n";
 		default:
+			postfill = "\n";
 			break;
 	}
 
@@ -55,18 +56,18 @@ int get_user_choice(char** choices, size_t count) {
 	int choice;
 
 	while (1) {
-		for (int i = 0; i++; i < count) {
+		for (int i = 0; i < count; i++) {
 			display_message(DM_Choice, "[%d] %s", i, choices[i]);
 		}
 
 		char input[32];
 		get_user_input(input, 32);
+		input[strcspn(input, "\n")] = '\0';
 
 		char* last_char;
-		choice = strtol(input, &last_char, 10);
-		printf("%c", *last_char);
+		choice = (int)strtol(input, &last_char, 10);
 
-		if (last_char == "\0") {
+		if (*last_char == '\0') {
 			break;
 		}
 	}
