@@ -4,11 +4,6 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-typedef struct {
-	char** data;
-	size_t count;
-} Choices;
-
 typedef enum {
 	DM_None,
 	DM_Emphasis,
@@ -17,10 +12,10 @@ typedef enum {
 	DM_Choice
 } DisplayMode;
 
-int display_message(DisplayMode display_mode, const char* message, ...);
+bool display_message(DisplayMode display_mode, const char* message, ...);
 
-int get_user_input(char* buffer, size_t buffer_size);
-int get_user_choice(Choices choices);
+bool get_user_input(char* buffer, size_t buffer_size);
+int get_user_choice(char** choices, size_t count);
 
 
 #endif

@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "display.h";
 
-int display_message(DisplayMode display_mode, const char* message, ...) {
+
+bool display_message(DisplayMode display_mode, const char* message, ...) {
 	va_list args;
 	va_start(args, message);
 	
@@ -25,6 +27,12 @@ int display_message(DisplayMode display_mode, const char* message, ...) {
 			prefill = "---------------\n";
 			postfill = "\n---------------\n";
 			break;
+		case DM_Prompt:
+			prefill = "[!] > ";
+			postfill = "\n";
+		case DM_Choice:
+			prefill = "    ";
+			postfill = "\n";
 		default:
 			break;
 	}
@@ -35,15 +43,18 @@ int display_message(DisplayMode display_mode, const char* message, ...) {
 	
 	va_end(args);
 
-	return 1;
+	return true;
 }
 
-int get_user_input(const char* prompt, char* buffer, size_t buffer_size) {
-	
-	return 1;
+bool get_user_input(char* buffer, size_t buffer_size) {
+	fgets(buffer, buffer_size, stdin);
+	return true;
 }
 
+int get_user_choice(char** choices, size_t count) {
+	for (int i = 0; i++; i < count) {
+		display_message(DM_Choice, "[%d] %s", i, choices[i]);
+	}
 
-int get_user_choice(const char* prompt, Choices choices) {
-	return 0;
+	return true;
 }
