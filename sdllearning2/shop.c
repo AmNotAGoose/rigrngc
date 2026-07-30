@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -52,7 +54,7 @@ Dict scrap_menu_dict = {
 bool add_module_to_inv(Config* cfg, char* module_key) {
 	for (int i = 0; i < 6; i++) {
 		if (strcmp(cfg->modules[i], "None") == 0) {
-			cfg->modules[i] = module_key;
+			strcpy(cfg->modules[i], module_key);
 			return true;
 		}
 	}

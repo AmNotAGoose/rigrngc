@@ -27,17 +27,16 @@ void RIG_tutorial() {
 	get_user_continue();
 }
 
-char* modules[6];
 
-void display_rig() {
+void display_rig(Config* cfg) {
 	display_divider();
 	display_message(DM_Emphasis, "your rig");
 	display_divider();
 
 	display_message(DM_Emphasis, "Generator");
 
-	for (int i = 0; i < ARRAY_COUNT(modules); i++) {
-		display_message(DM_Emphasis, modules[i]);
+	for (int i = 0; i < ARRAY_COUNT(cfg->modules); i++) {
+		display_message(DM_None, "[%d] %s", i, cfg->modules[i]);
 	}
 	
 	display_message(DM_Emphasis, "Out");
@@ -45,10 +44,62 @@ void display_rig() {
 	display_divider();
 }
 
-void RIG_menu(Config* cfg) {
-	display_rig();
-	
-	//while (1) {
+char* RIG_menu_options[] = {
+	"move / swap module",
+	"collect",
+	"tutorial",
+	"back"
+};
 
-	//}
+float get_efficiency(Config* cfg) {
+	return 1;
+}
+
+void swap_modules(Config* cfg) {
+	display_message(DM_Prompt, "select the index of the first module: ");
+	int m1 = get_user_int();
+
+	display_message(DM_Prompt, "select the index of the second module: ");
+	int m2 = get_user_int();
+
+	if (m1 >= 0 && m1 < 6 && m2 >= 0 && m2 < 6) {
+		char temp[32];
+
+		strcpy(temp, cfg->modules[m1]);
+		strcpy(cfg->modules[m1], cfg->modules[m2]);
+		strcpy(cfg->modules[m2], temp);
+
+		display_message(DM_Emphasis, "success");
+		return;
+	}
+
+	display_message(DM_Emphasis, "failure");
+	return;
+}
+
+void RIG_menu(Config* cfg) {	
+	while (1) {
+		display_rig(cfg);
+		display_message(DM_Prompt, "what would you like to do? [ product/min: %f ]", get_efficiency(cfg));
+
+		int choice = get_user_choice(&RIG_menu_options, ARRAY_COUNT(RIG_menu_options));
+
+		switch (choice) {
+			case 0:
+				display_rig(cfg);
+				swap_modules(cfg);
+
+				break;
+			case 1:
+
+				break;
+			case 2:
+				RIG_tutorial();
+				break;
+			case 3:
+				return;
+			default:
+				break;
+		}
+	}
 }

@@ -56,5 +56,8 @@
     <ClInclude Include="shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rigfield.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

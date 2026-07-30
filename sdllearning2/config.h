@@ -24,7 +24,7 @@ typedef struct {
 	time_t last_roll_timestamp;
 	int scrap;
 	int product;
-	char* modules[6];
+	char modules[6][32];
 	int rolls_per_reset;
 } Config;
 

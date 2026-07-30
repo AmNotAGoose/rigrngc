@@ -71,25 +71,34 @@ void get_user_continue() {
 }
 
 int get_user_choice(char** choices, size_t count) {
-	int choice;
-
 	while (1) {
 		for (int i = 0; i < count; i++) {
 			display_message(DM_Choice, "[%d] %s", i, choices[i]);
 		}
 
-		char input[32];
-		get_user_input(input, 32);
-		input[strcspn(input, "\n")] = '\0';
+		int choice = get_user_int();
 
-		char* last_char;
-		choice = (int)strtol(input, &last_char, 10);
-
-		if (*last_char == '\0' && 0 <= choice && choice < count && input[0] != '\0') {
-			break;
+		if (0 <= choice && choice < count) {
+			return choice;
 		}
 
 		display_message(DM_None, "that's not a valid choice. try again.");
 	}
-	return choice;
+}
+
+int get_user_int() {
+	while (1) {
+		char input[32];
+		get_user_input(input, sizeof(input));
+		input[strcspn(input, "\n")] = '\0';
+
+		char* last_char;
+		int value = (int)strtol(input, &last_char, 10);
+
+		if (*last_char == '\0' && input[0] != '\0') {
+			return value;
+		}
+
+		display_message(DM_None, "that's not a valid number. try again.");
+	}
 }

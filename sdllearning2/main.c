@@ -11,6 +11,7 @@
 #include "config.h"
 #include "scrapyard.h"
 #include "shop.h"
+#include "rigfield.h"
 
 
 static const DictItem age_luck_items[] = {
@@ -108,6 +109,7 @@ int main() {
 				SHOP_menu(&cfg);
 				break;
 			case 2: // build rigs
+				RIG_menu(&cfg);
 				break;
 			case 3: // rebirth
 				break;

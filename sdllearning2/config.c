@@ -20,7 +20,7 @@ int config_load(Config* cfg) {
         cfg->rolls_per_reset = 5;
 
         for (int i = 0; i < 6; i++) {
-            cfg->modules[i] = "None";
+            strcpy(cfg->modules[i], "None");
         }
 
         return 0;
@@ -37,13 +37,14 @@ int config_load(Config* cfg) {
         sscanf(line, "product=%d", &cfg->product);
         sscanf(line, "rolls_per_reset=%d", &cfg->rolls_per_reset);
 
-        sscanf(line, "modules=%s,%s,%s,%s,%s,%s",
-            &cfg->modules[0],
-            &cfg->modules[1],
-            &cfg->modules[2],
-            &cfg->modules[3],
-            &cfg->modules[4],
-            &cfg->modules[5]);
+        sscanf(line,
+            "modules=%31[^,],%31[^,],%31[^,],%31[^,],%31[^,],%31s",
+            cfg->modules[0],
+            cfg->modules[1],
+            cfg->modules[2],
+            cfg->modules[3],
+            cfg->modules[4],
+            cfg->modules[5]);
     }
 
     fclose(file);

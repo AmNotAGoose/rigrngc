@@ -1,8 +1,8 @@
 seed=1785433721
 luck=2
 cur_rolls=0
-last_roll_timestamp=1785433721
-scrap=24
+last_roll_timestamp=1785437316
+scrap=48
 product=0
 rolls_per_reset=5
-modules=PlusOne,None,None,None,None,None
+modules=PlusOne,MinusThree,None,None,None,None

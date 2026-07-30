@@ -162,6 +162,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="dictionary.h" />
     <ClInclude Include="display.h" />
+    <ClInclude Include="rigfield.h" />
     <ClInclude Include="scrapyard.h" />
     <ClInclude Include="shop.h" />
   </ItemGroup>

@@ -15,6 +15,7 @@ typedef enum {
 bool display_divider();
 bool display_message(DisplayMode display_mode, const char* message, ...);
 
+int get_user_int();
 bool get_user_input(char* buffer, size_t buffer_size);
 void get_user_continue();
 int get_user_choice(char** choices, size_t count);
