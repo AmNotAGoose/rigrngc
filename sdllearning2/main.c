@@ -6,6 +6,7 @@
 #include <time.h>
 
 #include "dictionary.h"
+#include "display.h"
 #include "common.h"
 
 
@@ -34,25 +35,25 @@ int roll_dice(int size) {
 	return (rand() % size) + 1;
 }
 
-int random_pull() {
+int scrapyard() {
 	return roll_dice(6) + roll_dice(6);
 }
 
 void onboarding() {
-	printf("welcome. to rigrng (c). \n------------- \nseed: %d\n-------------", seed);
+	display_message(DM_Emphasis, "welcome. to rigrng (c).");
+	display_message(DM_Section, "seed: %d", seed);
 
 	int age_input_raw;
 	char* age_key = NULL;
 	char color_key[16];
 	
-	printf("\n\nfirstly, tell me about yourself. this will significantly impact your LUCK in the game.");
+	display_message(DM_None, "firstly, tell me about yourself. this will significantly impact your LUCK in the game.");
 	
 	while (1) {
-
 		printf("\nwhat is your AGE ? \n> ");
 		scanf("%d", &age_input_raw);
 
-		if (0 <= age_input_raw <= 13) {
+		if (age_input_raw >= 0 && age_input_raw <= 13) {
 			age_key = "-13";
 		}
 		else if (age_input_raw > 13 && age_input_raw <= 25) {
@@ -87,8 +88,8 @@ void onboarding() {
 int main_menu() {
 	int menu = 0;
 	printf("\n\n-------------\nwhat would you like to do? \n[1] roll once\n[2] exit \n-------------\n> ");
-	scanf("%d", menu);
-	return menu > 0 && menu <= 2 ? menu : -1;
+	scanf("%d", &menu);
+	return (menu > 0 && menu <= 2 ? menu : -1);
 }
 
 int main() {
@@ -99,7 +100,7 @@ int main() {
 
 	while (1) {
 		int menu = main_menu();
-		printf("%d", &menu);
+		printf("%d", menu);
 	}
 
 	return 0;
