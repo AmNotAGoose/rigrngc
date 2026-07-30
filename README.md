@@ -16,3 +16,5 @@ a console rng game made to learn c. video at https://youtu.be/QcB0LQY6AfA
 - by claiming in this menu, you get PRODUCT depending on how long you waited and how efficient your RIG is.
 - then, once you have enough PRODUCT, go to rebirths menu
 - you can rebirth for a perm +1 to your base efficiency.
+- rebirths reset everything, your next rebirth will cost more!
+- the game is endless because you keep endlessly optimizing your RIG to get your next rebirth.
