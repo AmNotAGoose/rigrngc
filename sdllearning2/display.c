@@ -52,9 +52,24 @@ bool get_user_input(char* buffer, size_t buffer_size) {
 }
 
 int get_user_choice(char** choices, size_t count) {
-	for (int i = 0; i++; i < count) {
-		display_message(DM_Choice, "[%d] %s", i, choices[i]);
+	int choice;
+
+	while (1) {
+		for (int i = 0; i++; i < count) {
+			display_message(DM_Choice, "[%d] %s", i, choices[i]);
+		}
+
+		char input[32];
+		get_user_input(input, 32);
+
+		char* last_char;
+		choice = strtol(input, &last_char, 10);
+		printf("%c", *last_char);
+
+		if (last_char == "\0") {
+			break;
+		}
 	}
 
-	return true;
+	return choice;
 }

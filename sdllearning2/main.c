@@ -50,21 +50,25 @@ void onboarding() {
 	display_message(DM_None, "firstly, tell me about yourself. this will significantly impact your LUCK in the game.");
 	
 	while (1) {
-		printf("\nwhat is your AGE ? \n> ");
-		scanf("%d", &age_input_raw);
+		const char* age_luck_ranges;
+		get_keys(age_luck_dict, &age_luck_ranges);
 
-		if (age_input_raw >= 0 && age_input_raw <= 13) {
-			age_key = "-13";
-		}
-		else if (age_input_raw > 13 && age_input_raw <= 25) {
-			age_key = "14-25";
-		}
-		else if (age_input_raw > 25) {
-			age_key = "26-";
-		}
-		else {
-			age_key = "";
-		}
+		age_key = get_user_choice(&age_luck_ranges, age_luck_dict.count);
+
+		printf(age_key);
+
+		//if (age_input_raw >= 0 && age_input_raw <= 13) {
+		//	age_key = "-13";
+		//}
+		//else if (age_input_raw > 13 && age_input_raw <= 25) {
+		//	age_key = "14-25";
+		//}
+		//else if (age_input_raw > 25) {
+		//	age_key = "26-";
+		//}
+		//else {
+		//	age_key = "";
+		//}
 
 		printf("\nwhat is your favorite COLOR ? \n> ");
 		scanf("%15s", color_key);
@@ -79,7 +83,7 @@ void onboarding() {
 
 		luck = (*age_item).value + (*color_item).value;
 
-		printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", age_input_raw, color_key, luck);
+		printf("\nyour AGE is %d, your favorite COLOR is %s, your LUCK is therefore %f", 3, color_key, luck);
 
 		break;
 	}
