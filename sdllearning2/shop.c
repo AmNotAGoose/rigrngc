@@ -44,6 +44,7 @@ DictItem scrap_menu_dictitems[] = {
 	{"DoublePositive,", M_DoublePositive},
 	{"PlusOne", M_PlusOne},
 	{"MinusThree", M_MinusThree},
+	{"None", M_None},
 	//{"Out", M_Out}
 };
 Dict scrap_menu_dict = {

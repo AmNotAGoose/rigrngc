@@ -22,6 +22,7 @@ typedef struct {
 	int luck;
 	int cur_rolls;
 	time_t last_roll_timestamp;
+	time_t last_collect_timestamp;
 	int scrap;
 	int product;
 	char modules[6][32];

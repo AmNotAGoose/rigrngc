@@ -4,6 +4,8 @@
 #include "display.h"
 #include "common.h"
 #include "config.h" 
+#include "shop.h" 
+#include "dictionary.h" 
 
 
 void RIG_tutorial() {
@@ -52,7 +54,50 @@ char* RIG_menu_options[] = {
 };
 
 float get_efficiency(Config* cfg) {
-	return 1;
+	float eff = 1; // generator = 1
+
+	for (int i = 0; i < 6; i++) {
+
+		DictItem* cur_module_item = get_item_by_key(scrap_menu_dict, cfg->modules[i]);
+
+		switch (cur_module_item->value) {
+			case M_None: {
+				break;
+			}
+			case M_Generator: {
+				break;
+			}
+			case M_Inverter: {
+				eff = -eff;
+				break;
+			}
+			case M_QuadrupleNegative: {
+				if (eff < 0) {
+					eff *= 4;
+				}
+				break;
+			}
+			case M_DoublePositive: {
+				if (eff > 0) {
+					eff *= 2;
+				}
+				break;
+			}
+			case M_PlusOne: {
+				eff += 1;
+				break;
+			}
+			case M_MinusThree: {
+				eff -= 3;
+				break;
+			}
+			case M_Out: {
+				break;
+			}
+		}
+	}
+
+	return eff;
 }
 
 void swap_modules(Config* cfg) {
@@ -69,12 +114,26 @@ void swap_modules(Config* cfg) {
 		strcpy(cfg->modules[m1], cfg->modules[m2]);
 		strcpy(cfg->modules[m2], temp);
 
+		config_save(cfg);
+
 		display_message(DM_Emphasis, "success");
 		return;
 	}
 
 	display_message(DM_Emphasis, "failure");
 	return;
+}
+
+void collect(Config* cfg) {
+	int minutes = (int)(time(NULL) - cfg->last_collect_timestamp) / 60;
+	int product = (int)(minutes * get_efficiency(cfg));
+
+	display_message(DM_Emphasis, "collected %d PRODUCT at a rate of %f product/min for %d min", product, get_efficiency(cfg), minutes);
+
+	cfg->product += product;
+	cfg->last_collect_timestamp = time(NULL);
+
+	config_save(cfg);
 }
 
 void RIG_menu(Config* cfg) {	
@@ -88,10 +147,9 @@ void RIG_menu(Config* cfg) {
 			case 0:
 				display_rig(cfg);
 				swap_modules(cfg);
-
 				break;
 			case 1:
-
+				collect(cfg);
 				break;
 			case 2:
 				RIG_tutorial();
