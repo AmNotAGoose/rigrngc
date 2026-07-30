@@ -9,13 +9,14 @@ typedef enum {
 	DM_Emphasis,
 	DM_Section,
 	DM_Prompt,
-	DM_Choice,
+	DM_Choice, 
 } DisplayMode;
 
 bool display_divider();
 bool display_message(DisplayMode display_mode, const char* message, ...);
 
 bool get_user_input(char* buffer, size_t buffer_size);
+void get_user_continue();
 int get_user_choice(char** choices, size_t count);
 
 

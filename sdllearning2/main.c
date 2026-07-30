@@ -8,6 +8,8 @@
 #include "dictionary.h"
 #include "display.h"
 #include "common.h"
+#include "config.h"
+#include "scrapyard.h"
 
 
 static const DictItem age_luck_items[] = {
@@ -16,7 +18,6 @@ static const DictItem age_luck_items[] = {
 	{"26+", -3},
 };
 static const Dict age_luck_dict = MAKE_DICT(age_luck_items);
-
 
 static DictItem color_luck_items[] = {
 	{"red", 3},
@@ -31,28 +32,23 @@ const char* main_menu_choices[] = {
 	"build rigs"
 };
 
-static float luck = 0;
-unsigned int seed = 0;
+static Config cfg;
 
 
 void onboarding() {
 	display_message(DM_Emphasis, "welcome. to rigrng (c).");
-	display_message(DM_Section, "seed: %d", seed);
+	display_message(DM_Section, "seed: %d", cfg.seed);
 	
 	char* age_key = NULL;
 	char* color_key = NULL;
 	
 	display_message(DM_None, "firstly, tell me about yourself. this will significantly impact your LUCK in the game.");
 	 
-	const char** age_luck_ranges = malloc(sizeof(char*) * age_luck_dict.count);
-	get_keys(age_luck_dict, age_luck_ranges);
-
+	const char** age_luck_ranges = get_keys(&age_luck_dict);
 	display_message(DM_Prompt, "what is your age?");
 	age_key = age_luck_dict.items[get_user_choice(age_luck_ranges, age_luck_dict.count)].key;
 
-	const char** color_luck_ranges = malloc(sizeof(char*) * color_luck_dict.count);
-	get_keys(color_luck_dict, color_luck_ranges);
-
+	const char** color_luck_ranges = get_keys(&color_luck_dict);
 	display_message(DM_Prompt, "what is your favorite color?");
 	color_key = color_luck_dict.items[get_user_choice(color_luck_ranges, color_luck_dict.count)].key;
 
@@ -63,13 +59,17 @@ void onboarding() {
 	free(color_luck_ranges); 
 
 	int age_luck_value = age_item->value;
-	int color_luck_value = age_item->value;
+	int color_luck_value = color_item->value;
 
-	luck = age_luck_value + color_luck_value;
-		
+	cfg.luck = age_luck_value + color_luck_value;
+
 	display_message(DM_Emphasis, "your AGE scores you %d", age_luck_value);
 	display_message(DM_Emphasis, "your favorite COLOR scores you %d", color_luck_value);
-	display_message(DM_Emphasis, "your LUCK is therefore %f", luck);
+	display_message(DM_Emphasis, "your LUCK is therefore %d", cfg.luck);
+
+	cfg.cur_rolls = 5;
+
+	config_save(&cfg);
 }
 
 int main_menu() {
@@ -82,15 +82,32 @@ int main_menu() {
 }
 
 int main() {
-	seed = (int)time(NULL);
-	srand(seed);
+	config_load(&cfg);
 
-	onboarding();
+	if (cfg.seed == 0) {
+		cfg.seed = (int)time(NULL);
+	}
+
+	srand(cfg.seed);
+
+	if (cfg.luck == 0) {
+		onboarding();
+	}
 
 	while (1) {
 		int menu = main_menu();
 
-
+		switch (menu) {
+			case 0: // roll for scrap
+				SY_menu(&cfg);
+				break;
+			case 1: // spend your scrap
+				break;
+			case 2: // build rigs
+				break;
+			default:
+				break;
+		}
 	}
 
 	return 0;

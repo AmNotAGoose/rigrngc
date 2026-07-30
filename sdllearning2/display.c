@@ -56,7 +56,18 @@ bool display_message(DisplayMode display_mode, const char* message, ...) {
 bool get_user_input(char* buffer, size_t buffer_size) {
 	printf("YOUR INPUT: ");
 	fgets(buffer, buffer_size, stdin);
+	printf("\033[A\33[2K[ entered ]\n"); 
 	return true;
+}
+
+void get_user_continue() {
+	printf("[ANY KEY TO CONTINUE]");
+	fflush(stdout);
+
+	_getch();
+
+	printf("\r%-30s\r", "");
+	//fflush(stdout);
 }
 
 int get_user_choice(char** choices, size_t count) {
@@ -74,13 +85,11 @@ int get_user_choice(char** choices, size_t count) {
 		char* last_char;
 		choice = (int)strtol(input, &last_char, 10);
 
-		if (*last_char == '\0' && 0 <= choice && choice < count) {
+		if (*last_char == '\0' && 0 <= choice && choice < count && input[0] != '\0') {
 			break;
 		}
 
 		display_message(DM_None, "that's not a valid choice. try again.");
 	}
-
-	display_message(DM_Emphasis, "saved");
 	return choice;
 }
