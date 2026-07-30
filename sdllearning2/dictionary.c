@@ -11,6 +11,17 @@ DictItem* get_item_by_key(Dict dict, const char* key) {
 	return NULL;
 }
 
+DictItem* get_key_by_item(Dict dict, int item) {
+	// its linear search for now
+	for (int i = 0; i < dict.count; i++) {
+		DictItem* cur_item = &(dict.items[i]);
+		if (strcmp((*cur_item).value, item) == 0) {
+			return cur_item;
+		}
+	}
+	return NULL;
+}
+
 //void get_keys(Dict dict, const char** buffer) { // the buffer should be the same size as the dict.count
 //	for (size_t i = 0; i < dict.count; i++) {
 //		buffer[i] = dict.items[i].key;

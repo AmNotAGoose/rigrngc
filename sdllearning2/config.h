@@ -16,6 +16,7 @@ typedef enum {
 	M_Out
 } Module;
 
+
 typedef struct {
 	int seed;
 	int luck;
@@ -23,7 +24,7 @@ typedef struct {
 	time_t last_roll_timestamp;
 	int scrap;
 	int product;
-	Module modules[6];
+	char* modules[6];
 	int rolls_per_reset;
 } Config;
 

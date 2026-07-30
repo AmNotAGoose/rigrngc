@@ -66,7 +66,8 @@ void SY_menu(Config* cfg) {
 				cfg->cur_rolls -= 1;
 
 				display_message(DM_Emphasis, "you gained +%d SCRAP. you now have %d SCRAP", scrap_gained, cfg->scrap);
-
+				
+				config_save(cfg);
 				break;
 			case 1:
 				if (time_to_next_reset(cfg) != 0) {
@@ -78,6 +79,7 @@ void SY_menu(Config* cfg) {
 				cfg->last_roll_timestamp = time(NULL);
 
 				display_message(DM_Emphasis, "reset. +%d rolls.", cfg->rolls_per_reset);
+				config_save(cfg);
 				break;
 			case 2:
 				SY_tutorial();

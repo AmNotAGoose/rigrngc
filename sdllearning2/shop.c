@@ -1,5 +1,5 @@
 #include <stdlib.h>
-
+#include <string.h>
 
 #include "config.h"
 #include "display.h"
@@ -21,30 +21,69 @@ void SHOP_tutorial() {
 	get_user_continue();
 }
 
+
+const int module_to_cost(Module _module) {
+	switch (_module) {
+	case M_None: return 0;
+	case M_Generator: return 0;
+	case M_Inverter: return 50;
+	case M_QuadrupleNegative: return 60;
+	case M_DoublePositive: return 60;
+	case M_PlusOne: return 20;
+	case M_MinusThree: return 20;
+	case M_Out: return 0;
+	}
+}
+
 DictItem scrap_menu_dictitems[] = {
-	{"M_Generator", M_Generator},
-	{"M_Inverter", M_Inverter},
-	{"M_QuadrupleNegative", M_QuadrupleNegative},
-	{"M_DoublePositive,", M_DoublePositive},
-	{"M_PlusOne", M_PlusOne},
-	{"M_MinusThree", M_MinusThree},
-	{"M_Out", M_Out}
+	//{"Generator", M_Generator},
+	{"Inverter", M_Inverter},
+	{"QuadrupleNegative", M_QuadrupleNegative},
+	{"DoublePositive,", M_DoublePositive},
+	{"PlusOne", M_PlusOne},
+	{"MinusThree", M_MinusThree},
+	//{"Out", M_Out}
 };
 Dict scrap_menu_dict = {
 	scrap_menu_dictitems,
 	ARRAY_COUNT(scrap_menu_dictitems),
 };
 
-void spend_scrap(Config* cfg) {
-	char* scrap_menu_options[M_Out];
-
-	for (int i = 0; i < M_Out; i++) {
-
+bool add_module_to_inv(Config* cfg, char* module_key) {
+	for (int i = 0; i < 6; i++) {
+		if (strcmp(cfg->modules[i], "None") == 0) {
+			cfg->modules[i] = module_key;
+			return true;
+		}
 	}
+	return false;
+}
+
+void spend_scrap(Config* cfg) {
+	char** scrap_menu_keys = get_keys(&scrap_menu_dict);
 
 	display_divider();
 	display_message(DM_Prompt, "what would you like to do? [ scrap: %d | product: %d ]", cfg->scrap, cfg->product);
 
+	int choice = get_user_choice(scrap_menu_keys, scrap_menu_dict.count);
+
+	DictItem* choice_item = &scrap_menu_dictitems[choice];
+	int choice_cost = module_to_cost(choice_item->value);
+
+	if (!(cfg->scrap >= choice_cost)) {
+		display_message(DM_Emphasis, "you dont have enough! you need %d SCRAP for this.", choice_cost);
+		return;
+	}
+
+	if (add_module_to_inv(cfg, choice_item->key)) {
+		display_message(DM_Emphasis, "successfully purchased");
+		cfg->scrap -= choice_cost;
+		config_save(cfg);
+		return;
+	}
+
+	display_message(DM_Emphasis, "out of space!");
+	return;
 }
 
 
