@@ -15,7 +15,7 @@ void SY_tutorial() {
 	get_user_continue();
 	display_message(DM_Emphasis, "Here, you can roll for SCRAP.");
 	get_user_continue();
-	display_message(DM_Emphasis, "You get 5 rolls every 5 minutes.");
+	display_message(DM_Emphasis, "You get 5 rolls every 30s, but you have to manually claim them.");
 	get_user_continue();
 	display_message(DM_Emphasis, "SCRAP can be used to create MODULES.");
 	get_user_continue();
