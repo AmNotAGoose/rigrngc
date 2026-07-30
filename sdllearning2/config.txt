@@ -1,9 +1,9 @@
 seed=1785441175
 luck=7
 cur_rolls=0
-last_roll_timestamp=1785441814
+last_roll_timestamp=1785442224
 last_collect_timestamp=1785441627
-scrap=34
+scrap=66
 product=0
 rebirth_product=30
 rebirths=1
