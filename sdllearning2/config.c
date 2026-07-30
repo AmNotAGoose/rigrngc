@@ -16,7 +16,13 @@ int config_load(Config* cfg) {
         cfg->cur_rolls = 0;
         cfg->last_roll_timestamp = time(NULL);
         cfg->scrap = 0;
+        cfg->product = 0;
         cfg->rolls_per_reset = 5;
+
+        for (int i = 0; i < 6; i++) {
+            cfg->modules[i] = M_None;
+        }
+
         return 0;
     }
 
@@ -27,8 +33,17 @@ int config_load(Config* cfg) {
         sscanf(line, "luck=%d", &cfg->luck);
         sscanf(line, "cur_rolls=%d", &cfg->cur_rolls);
         sscanf(line, "last_roll_timestamp=%lld", (long long*)&cfg->last_roll_timestamp);
-        sscanf(line, "scrap=%d\n", &cfg->scrap);
-        sscanf(line, "rolls_per_reset=%d\n", &cfg->rolls_per_reset);
+        sscanf(line, "scrap=%d", &cfg->scrap);
+        sscanf(line, "product=%d", &cfg->product);
+        sscanf(line, "rolls_per_reset=%d", &cfg->rolls_per_reset);
+
+        sscanf(line, "modules=%d,%d,%d,%d,%d,%d",
+            (int*)&cfg->modules[0],
+            (int*)&cfg->modules[1],
+            (int*)&cfg->modules[2],
+            (int*)&cfg->modules[3],
+            (int*)&cfg->modules[4],
+            (int*)&cfg->modules[5]);
     }
 
     fclose(file);
@@ -46,7 +61,16 @@ int config_save(Config* cfg) {
     fprintf(file, "cur_rolls=%d\n", cfg->cur_rolls);
     fprintf(file, "last_roll_timestamp=%d\n", cfg->last_roll_timestamp);
     fprintf(file, "scrap=%d\n", cfg->scrap);
+    fprintf(file, "product=%d\n", cfg->product);
     fprintf(file, "rolls_per_reset=%d\n", cfg->rolls_per_reset);
+
+    fprintf(file, "modules=%d,%d,%d,%d,%d,%d\n",
+        cfg->modules[0],
+        cfg->modules[1],
+        cfg->modules[2],
+        cfg->modules[3],
+        cfg->modules[4],
+        cfg->modules[5]);
 
     fclose(file);
     return 0;

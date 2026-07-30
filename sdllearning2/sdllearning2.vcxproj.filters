@@ -30,6 +30,12 @@
     <ClCompile Include="config.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rigfield.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionary.h">
@@ -45,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scrapyard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

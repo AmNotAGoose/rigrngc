@@ -3,6 +3,18 @@
 
 #include <time.h>
 
+#include "dictionary.h"
+
+typedef enum {
+	M_None,
+	M_Generator,
+	M_Inverter,
+	M_QuadrupleNegative,
+	M_DoublePositive,
+	M_PlusOne,
+	M_MinusThree,
+	M_Out
+} Module;
 
 typedef struct {
 	int seed;
@@ -10,6 +22,8 @@ typedef struct {
 	int cur_rolls;
 	time_t last_roll_timestamp;
 	int scrap;
+	int product;
+	Module modules[6];
 	int rolls_per_reset;
 } Config;
 

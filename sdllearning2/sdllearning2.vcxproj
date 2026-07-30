@@ -148,7 +148,9 @@
     <ClCompile Include="dictionary.c" />
     <ClCompile Include="display.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="rigfield.c" />
     <ClCompile Include="scrapyard.c" />
+    <ClCompile Include="shop.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Packages\SDL-release-3.4.12\VisualC\SDL\SDL.vcxproj">
@@ -161,6 +163,7 @@
     <ClInclude Include="dictionary.h" />
     <ClInclude Include="display.h" />
     <ClInclude Include="scrapyard.h" />
+    <ClInclude Include="shop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

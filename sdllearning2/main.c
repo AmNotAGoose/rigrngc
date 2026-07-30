@@ -10,6 +10,7 @@
 #include "common.h"
 #include "config.h"
 #include "scrapyard.h"
+#include "shop.h"
 
 
 static const DictItem age_luck_items[] = {
@@ -26,11 +27,6 @@ static DictItem color_luck_items[] = {
 };
 static const Dict color_luck_dict = MAKE_DICT(color_luck_items);
 
-const char* main_menu_choices[] = {
-	"roll for scrap",
-	"spend your scrap",
-	"build rigs"
-};
 
 static Config cfg;
 
@@ -72,6 +68,13 @@ void onboarding() {
 	config_save(&cfg);
 }
 
+const char* main_menu_choices[] = {
+	"roll for SCRAP",
+	"purchase upgrades",
+	"build rigs",
+	"rebirth"
+};
+
 int main_menu() {
 	int menu = 0;
 	
@@ -102,8 +105,11 @@ int main() {
 				SY_menu(&cfg);
 				break;
 			case 1: // spend your scrap
+				SHOP_menu(&cfg);
 				break;
 			case 2: // build rigs
+				break;
+			case 3: // rebirth
 				break;
 			default:
 				break;

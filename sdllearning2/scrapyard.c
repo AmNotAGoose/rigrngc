@@ -5,12 +5,6 @@
 #include "common.h"
 #include "config.h" 
 
-char* SY_menu_options[] = {
-	"roll now",
-	"reset",
-	"tutorial",
-	"back"
-};
 
 int roll_dice(int size) {
 	return (rand() % size) + 1;
@@ -42,6 +36,13 @@ int time_to_next_reset(Config* cfg) {
 	int ttnr = (500 - (int)(time(NULL) - cfg->last_roll_timestamp));
 	return ttnr >= 0 ? ttnr : 0;
 }
+
+char* SY_menu_options[] = {
+	"roll now",
+	"reset",
+	"tutorial",
+	"back"
+};
 
 void SY_menu(Config* cfg) {
 	
