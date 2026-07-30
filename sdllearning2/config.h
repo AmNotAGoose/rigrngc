@@ -10,6 +10,7 @@ typedef struct {
 	int cur_rolls;
 	time_t last_roll_timestamp;
 	int scrap;
+	int rolls_per_reset;
 } Config;
 
 int config_load(Config* cfg);

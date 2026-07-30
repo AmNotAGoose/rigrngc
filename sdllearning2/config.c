@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "config.h";
 
@@ -13,8 +14,9 @@ int config_load(Config* cfg) {
         cfg->seed = 0;
         cfg->luck = 0;
         cfg->cur_rolls = 0;
-        cfg->last_roll_timestamp = 0;
+        cfg->last_roll_timestamp = time(NULL);
         cfg->scrap = 0;
+        cfg->rolls_per_reset = 5;
         return 0;
     }
 
@@ -26,6 +28,7 @@ int config_load(Config* cfg) {
         sscanf(line, "cur_rolls=%d", &cfg->cur_rolls);
         sscanf(line, "last_roll_timestamp=%lld", (long long*)&cfg->last_roll_timestamp);
         sscanf(line, "scrap=%d\n", &cfg->scrap);
+        sscanf(line, "rolls_per_reset=%d\n", &cfg->rolls_per_reset);
     }
 
     fclose(file);
@@ -43,6 +46,7 @@ int config_save(Config* cfg) {
     fprintf(file, "cur_rolls=%d\n", cfg->cur_rolls);
     fprintf(file, "last_roll_timestamp=%d\n", cfg->last_roll_timestamp);
     fprintf(file, "scrap=%d\n", cfg->scrap);
+    fprintf(file, "rolls_per_reset=%d\n", cfg->rolls_per_reset);
 
     fclose(file);
     return 0;

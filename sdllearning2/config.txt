@@ -1,6 +1,6 @@
-seed=1785420982
-luck=2
+seed=1785426298
+luck=6
 cur_rolls=5
-seconds_since_last_roll=0
+last_roll_timestamp=1785426298
 scrap=0
-
+rolls_per_reset=5
