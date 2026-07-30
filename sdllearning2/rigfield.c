@@ -54,7 +54,7 @@ char* RIG_menu_options[] = {
 };
 
 float get_efficiency(Config* cfg) {
-	float eff = 1; // generator = 1
+	float eff = cfg->rebirths + 1; // generator = 1 at start
 
 	for (int i = 0; i < 6; i++) {
 
@@ -130,7 +130,7 @@ void collect(Config* cfg) {
 
 	display_message(DM_Emphasis, "collected %d PRODUCT at a rate of %f product/min for %d min", product, get_efficiency(cfg), minutes);
 
-	cfg->product += product;
+	cfg->product += product >= 0 ? product : 0;
 	cfg->last_collect_timestamp = time(NULL);
 
 	config_save(cfg);

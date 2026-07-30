@@ -33,7 +33,7 @@ int time_to_next_reset(Config* cfg) {
 	//printf("%lld\n", cfg->last_roll_timestamp);
 	//printf("%lld\n", time(NULL));
 	//printf("%lld\n", time(NULL) - cfg->last_roll_timestamp);
-	int ttnr = (500 - (int)(time(NULL) - cfg->last_roll_timestamp));
+	int ttnr = (30 - (int)(time(NULL) - cfg->last_roll_timestamp));
 	return ttnr >= 0 ? ttnr : 0;
 }
 

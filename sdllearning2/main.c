@@ -12,6 +12,7 @@
 #include "scrapyard.h"
 #include "shop.h"
 #include "rigfield.h"
+#include "rebirth.h"
 
 
 static const DictItem age_luck_items[] = {
@@ -112,6 +113,7 @@ int main() {
 				RIG_menu(&cfg);
 				break;
 			case 3: // rebirth
+				REBIRTH_menu(&cfg);
 				break;
 			default:
 				break;

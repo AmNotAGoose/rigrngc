@@ -25,6 +25,8 @@ typedef struct {
 	time_t last_collect_timestamp;
 	int scrap;
 	int product;
+	int rebirth_product;
+	int rebirths;
 	char modules[6][32];
 	int rolls_per_reset;
 } Config;

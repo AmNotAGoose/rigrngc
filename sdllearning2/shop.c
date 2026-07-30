@@ -89,17 +89,11 @@ void spend_scrap(Config* cfg) {
 	return;
 }
 
-
-char* product_menu_options[] = {
-	"spend your SCRAP",
-	"spend your PRODUCT",
-	"tutorial",
-	"back"
-};
-
 void spend_product(Config* cfg) {
-	display_message(DM_Emphasis, "im buygn somethin product");
-
+	display_message(DM_Emphasis, "for now, PRODUCT can only be used to REBIRTH.");
+	display_message(DM_Emphasis, "head to the main menu to rebirth.");
+	display_message(DM_Emphasis, "in the future, PRODUCT may be used to purchase run-specific buffs.");
+	return;
 }
 
 

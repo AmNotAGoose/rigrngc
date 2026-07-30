@@ -36,6 +36,9 @@
     <ClCompile Include="shop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rebirth.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionary.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rigfield.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rebirth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

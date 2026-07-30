@@ -18,6 +18,8 @@ int config_load(Config* cfg) {
         cfg->last_collect_timestamp = time(NULL);
         cfg->scrap = 0;
         cfg->product = 0;
+        cfg->rebirth_product = 15;
+        cfg->rebirths = 0;
         cfg->rolls_per_reset = 5;
 
         for (int i = 0; i < 6; i++) {
@@ -37,6 +39,8 @@ int config_load(Config* cfg) {
         sscanf(line, "last_collect_timestamp=%lld", (long long*)&cfg->last_collect_timestamp);
         sscanf(line, "scrap=%d", &cfg->scrap);
         sscanf(line, "product=%d", &cfg->product);
+        sscanf(line, "rebirth_product=%d", &cfg->rebirth_product);
+        sscanf(line, "rebirths=%d", &cfg->rebirths);
         sscanf(line, "rolls_per_reset=%d", &cfg->rolls_per_reset);
 
         sscanf(line,
@@ -66,6 +70,8 @@ int config_save(Config* cfg) {
     fprintf(file, "last_collect_timestamp=%d\n", cfg->last_collect_timestamp);
     fprintf(file, "scrap=%d\n", cfg->scrap);
     fprintf(file, "product=%d\n", cfg->product);
+    fprintf(file, "rebirth_product=%d\n", cfg->rebirth_product);
+    fprintf(file, "rebirths=%d\n", cfg->rebirths);
     fprintf(file, "rolls_per_reset=%d\n", cfg->rolls_per_reset);
 
     fprintf(file, "modules=%s,%s,%s,%s,%s,%s\n",

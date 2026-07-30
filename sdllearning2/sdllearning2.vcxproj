@@ -148,6 +148,7 @@
     <ClCompile Include="dictionary.c" />
     <ClCompile Include="display.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="rebirth.c" />
     <ClCompile Include="rigfield.c" />
     <ClCompile Include="scrapyard.c" />
     <ClCompile Include="shop.c" />
@@ -162,6 +163,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="dictionary.h" />
     <ClInclude Include="display.h" />
+    <ClInclude Include="rebirth.h" />
     <ClInclude Include="rigfield.h" />
     <ClInclude Include="scrapyard.h" />
     <ClInclude Include="shop.h" />
